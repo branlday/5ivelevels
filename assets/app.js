@@ -494,7 +494,7 @@ async function enhancedSend(){
   render(); toChatEnd();
   let text = "";
   try {
-    const res = await fetch(ENDPOINT, {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({report: E.report, messages: E.messages}), signal: EX.ctrl.signal});
+    const res = await fetch(ENDPOINT, {method: "POST", headers: {"content-type": "application/json"}, body: JSON.stringify({brief: enhancedBrief(E.report), opening: FW.enhanced.opening, messages: E.messages}), signal: EX.ctrl.signal});
     const type = res.headers.get("content-type") || "";
     if (!res.ok){ let m = ""; try { m = (await res.json()).message; } catch(err){} throw new Error(m || `The request failed (${res.status}). Try again in a moment.`); }
     if (type.includes("application/json")){ const j = await res.json(); text = j.choices?.[0]?.message?.content || ""; }
